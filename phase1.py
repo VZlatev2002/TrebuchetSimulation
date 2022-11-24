@@ -50,25 +50,27 @@ def event1(t,z):
     
     return y_dd - g
 
-event1.terminal = True
-event1.direction = 0
+def sim1():
+    event1.terminal = True
+    event1.direction = 0
 
-# Loading treb data for simulation
+    # Loading treb data for simulation
 
-tm, zm, t2, z2, t3, z3 = load_treb_data(L_BC, L_S, H)
 
-# Defining initial conditions
+    # Defining initial conditions
 
-z0 = np.array([pi/2 + np.arcsin(H/L_BP),
+    z0 = np.array([pi/2 + np.arcsin(H/L_BP),
                0])
 
-# ODE Solver
+    # ODE Solver
 
-rtol = 1e-6
+    rtol = 1e-6
 
-sol = solve_ivp(f1, (0,5), z0, rtol = rtol, events = event1)
-t1 = sol.t
-z1 = sol.y
+    sol = solve_ivp(f1, (0,5), z0, rtol = rtol, events = event1)
+    t1 = sol.t
+    z1 = sol.y
+    
+    return t1, z1
 
 '''
 z1 terms are (θ, θ dot)

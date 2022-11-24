@@ -143,7 +143,7 @@ def animate_trebuchet(t1,z1,t2,z2,t3,z3,p):
     sling_verts_END = np.hstack((SV_x[:,[-1]],SV_y[:,[-1]]))
     
     # Initialise plot
-    ###########################################################################
+    #########################################################################
     fig, ax = plt.subplots()
     
     ax.set_title('Press "f" to toggle fullscreen',loc='right')

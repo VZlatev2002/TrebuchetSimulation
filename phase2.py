@@ -28,11 +28,6 @@ p = [g, m_B, M_CW, M_P, L_B, H, L_S, L_BC, L_BP]
 
 # Initial conditions
 
-t1,z1,tm,zm,t3,z3 = tf.load_treb_data(L_BC,L_S,H)
-
-
-phi = tf.phifun(z1[0][-1],p)
-dphi = tf.dphifun(z1[0][-1], z1[1][-1],p)
 
 # Equation of motion
 
@@ -58,23 +53,30 @@ def event2(t,z):
 
     return z[1] - np.pi
 
-event2.terminal = True
-event2.direction = 1
+
 
 
 #ODE Solver & initial conditions
+def sim2(t1, z1):
+    phi = tf.phifun(z1[0][-1],p)
+    dphi = tf.dphifun(z1[0][-1], z1[1][-1],p)
 
-rtol = 1e-6
+    # Equation of motion
+    event2.terminal = True
+    event2.direction = 1
+    rtol = 1e-6
 
-a = z1[0][-1]
+    a = z1[0][-1]
 
-z0 = [z1[0][-1],
-      phi,
-      z1[1][-1],
-      dphi]
+    z0 = [z1[0][-1],
+          phi,
+          z1[1][-1],
+          dphi]
 
 # Execute IVP solver
 
-sol = solve_ivp(f2, (t1[-1],t1[-1]+10), z0, rtol=rtol, events=event2)
-t2 = sol.t
-z2 = sol.y
+    sol = solve_ivp(f2, (t1[-1],t1[-1]+10), z0, rtol=rtol, events=event2)
+    t2 = sol.t
+    z2 = sol.y
+    
+    return t2,z2
