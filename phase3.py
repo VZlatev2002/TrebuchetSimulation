@@ -50,31 +50,32 @@ def f3(t,z):
 def event3(t,z):
     return z[1]
 
-event3.terminal = True
-event3.direction = -1
 
-# Loading old data for testing purposes. Line below has to be removed for final code
 
-t1, z1, t2, z2, t4, z4 = load_treb_data(L_BC, L_S, H)
 
+def sim3(t2, z2):
+    event3.terminal = True
+    event3.direction = -1
 # Defining initial conditions based on data from phase 2
 
-z00 = -(L_BP+L_S)*np.sin(z2[0][-1])
-z01 = H+(L_BP+L_S)*np.cos(z2[0][-1])
-z02 = (L_S*np.cos(z2[0][-1]-z2[1][-1])-(L_BP+L_S)*np.cos(z2[0][-1]))*z2[2][-1]\
-    - L_S*np.cos(z2[0][-1]-z2[1][-1])*z2[3][-1]
-z03 = (L_S*np.sin(z2[0][-1]-z2[1][-1])-(L_BP+L_S)*np.sin(z2[0][-1]))*z2[2][-1]\
-    - L_S*np.sin(z2[0][-1]-z2[1][-1])*z2[3][-1]
-
-z0 = np.array([z00,
-      z01,
-      z02,
-      z03])
-
-# ODE Solver
-
-rtol = 1e-6
-
-sol = solve_ivp(f3, (t2[-1],t2[-1]+20), z0, rtol = rtol, events = event3)
-t3 = sol.t
-z3 = sol.y
+    z00 = -(L_BP+L_S)*np.sin(z2[0][-1])
+    z01 = H+(L_BP+L_S)*np.cos(z2[0][-1])
+    z02 = (L_S*np.cos(z2[0][-1]-z2[1][-1])-(L_BP+L_S)*np.cos(z2[0][-1]))*z2[2][-1]\
+        - L_S*np.cos(z2[0][-1]-z2[1][-1])*z2[3][-1]
+    z03 = (L_S*np.sin(z2[0][-1]-z2[1][-1])-(L_BP+L_S)*np.sin(z2[0][-1]))*z2[2][-1]\
+        - L_S*np.sin(z2[0][-1]-z2[1][-1])*z2[3][-1]
+    
+    z0 = np.array([z00,
+          z01,
+          z02,
+          z03])
+    
+    # ODE Solver
+    
+    rtol = 1e-6
+    
+    sol = solve_ivp(f3, (t2[-1],t2[-1]+20), z0, rtol = rtol, events = event3)
+    t3 = sol.t
+    z3 = sol.y
+    
+    return t3, z3
