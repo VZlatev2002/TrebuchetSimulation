@@ -17,9 +17,9 @@ p_a = 1.225 # density of air
 p_w = 1000 # density of water
 C_d = 0.5 # drag coefficient
 pi = np.pi
-L_BC = 3#distance between the pivot and counterweight
-L_S = 5.5 # the sling length 
-H = 2 # height
+L_BC = 5.0#distance between the pivot and counterweight
+L_S = 8.0 # the sling length 
+H = 4.0 # height
 L_BP = L_B - L_BC #the difference
 
 p = [g, m_B, M_CW, M_P, L_B, H, L_S, L_BC, L_BP]

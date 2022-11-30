@@ -166,9 +166,9 @@ def sim3(t2, z2):
 
 
 
-L_BCa = np.arange(3.0, 4.1, 0.5)
-L_Sa = np.arange(5.0, 7.1, 0.5)
-Ha = np.arange(5.0, 7.1, 0.5)
+L_BCa = np.arange(2.0, 8.0, 0.1)
+L_Sa = np.arange(7.0, 10.0, 0.1)
+Ha = np.arange(6.0, 10.0, 0.1)
     
 def main(i,j,k):
     global L_BC
@@ -188,7 +188,7 @@ def main(i,j,k):
         t2, z2 = sim2(t1, z1)
         if (np.cos(z2[0][-1])*(L_BC+1) > H):
             return (0, 0)
-        elif (z2[0][-1] < 70/180 * np.pi ): # If theta is below 70 degrees, then the distance is going to be negative; this more optimization rather than physical constrain
+        elif (z2[0][-1] > 70/180 * np.pi ): # If theta is below 70 degrees, then the distance is going to be negative; this more optimization rather than physical constrain
             return (0,0)
         t3, z3 = sim3(t2, z2)
         point = "{},{},{}".format(i,j,k)
@@ -202,7 +202,7 @@ def main(i,j,k):
     # ani = tf.animate_trebuchet(t1, z1, t2, z2, t3, z3, p)      
 t1 = time.time()
 x_y = Parallel(n_jobs=7)(delayed(main)(i,j,k) for i in L_BCa for j in L_Sa for k in Ha)
-np.save('simulation_data.npy',x_y)
+np.save('simulation_data3.npy',x_y)
 print(x_y)
 distance_x = [i[0] for i in x_y]
 coordinate = [i[1] for i in x_y]
